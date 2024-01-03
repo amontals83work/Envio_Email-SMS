@@ -39,12 +39,14 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.rBtnEmail = new System.Windows.Forms.RadioButton();
             this.rBtnSMS = new System.Windows.Forms.RadioButton();
+            this.txtObservacion = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCargar
             // 
-            this.btnCargar.Location = new System.Drawing.Point(225, 124);
+            this.btnCargar.Location = new System.Drawing.Point(232, 156);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(75, 23);
             this.btnCargar.TabIndex = 21;
@@ -55,7 +57,7 @@
             // Label3
             // 
             this.Label3.AutoSize = true;
-            this.Label3.Location = new System.Drawing.Point(13, 93);
+            this.Label3.Location = new System.Drawing.Point(13, 125);
             this.Label3.Name = "Label3";
             this.Label3.Size = new System.Drawing.Size(42, 13);
             this.Label3.TabIndex = 20;
@@ -64,7 +66,7 @@
             // btnFichero
             // 
             this.btnFichero.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFichero.Location = new System.Drawing.Point(271, 89);
+            this.btnFichero.Location = new System.Drawing.Point(278, 121);
             this.btnFichero.Name = "btnFichero";
             this.btnFichero.Size = new System.Drawing.Size(29, 23);
             this.btnFichero.TabIndex = 19;
@@ -74,7 +76,7 @@
             // 
             // txtFichero
             // 
-            this.txtFichero.Location = new System.Drawing.Point(83, 90);
+            this.txtFichero.Location = new System.Drawing.Point(90, 122);
             this.txtFichero.Name = "txtFichero";
             this.txtFichero.Size = new System.Drawing.Size(183, 20);
             this.txtFichero.TabIndex = 18;
@@ -83,7 +85,7 @@
             // 
             this.cboCartera.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboCartera.FormattingEnabled = true;
-            this.cboCartera.Location = new System.Drawing.Point(83, 17);
+            this.cboCartera.Location = new System.Drawing.Point(90, 17);
             this.cboCartera.Name = "cboCartera";
             this.cboCartera.Size = new System.Drawing.Size(218, 21);
             this.cboCartera.TabIndex = 17;
@@ -102,7 +104,7 @@
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.rBtnEmail);
             this.panel1.Controls.Add(this.rBtnSMS);
-            this.panel1.Location = new System.Drawing.Point(83, 47);
+            this.panel1.Location = new System.Drawing.Point(90, 47);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(217, 34);
             this.panel1.TabIndex = 0;
@@ -128,11 +130,29 @@
             this.rBtnSMS.Text = "SMS";
             this.rBtnSMS.UseVisualStyleBackColor = true;
             // 
+            // txtObservacion
+            // 
+            this.txtObservacion.Location = new System.Drawing.Point(90, 92);
+            this.txtObservacion.Name = "txtObservacion";
+            this.txtObservacion.Size = new System.Drawing.Size(217, 20);
+            this.txtObservacion.TabIndex = 22;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 95);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(67, 13);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Observación";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(314, 161);
+            this.ClientSize = new System.Drawing.Size(322, 196);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtObservacion);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.Label3);
@@ -164,6 +184,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton rBtnEmail;
         private System.Windows.Forms.RadioButton rBtnSMS;
+        private System.Windows.Forms.TextBox txtObservacion;
+        internal System.Windows.Forms.Label label2;
     }
 }
 
