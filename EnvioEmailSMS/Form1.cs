@@ -88,7 +88,7 @@ namespace EnvioEmailSMS
                             }
                         case 83://NASSAU
                             {
-                                string tabla = "NASSLLAMADAS";
+                                string tabla = "NASSLLAMADAS"; //NASSLLAMADAS//_Pruebas_NASSAU
                                 string campo = "codigoparticipante";
                                 Inserciones_SMS_NASSAU(dt, tabla, campo);
                                 break;
@@ -343,12 +343,14 @@ namespace EnvioEmailSMS
                 string observacion = txtObservacion.Text;
 
                 mcComm.CommandText = "SELECT CodigoParticipante FROM NASSTITULARES WHERE Contrato=@expediente";
+                mcComm.command.Parameters.Clear();
                 mcComm.command.Parameters.AddWithValue("@expediente", contrato);
 
-                codigoParticipante = mcComm.ExecuteScalar().ToString();
-                if (codigoParticipante != null)
+                object result = mcComm.ExecuteScalar();
+                if (result != null) // Comprobar si el resultado no es nulo
                 {
-                    mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",fecha,telefono,gestion,interlocutor,respuesta,observaciones,usuario,contrato) VALUES (@value1,GETDATE(),@value2,86,1,20,@value3,'Automarcador',@value4)";
+                    codigoParticipante = result.ToString();
+                    mcComm.CommandText = "INSERT INTO " + tabla + " (" + campo + ",fecha,telefono,gestion,interlocutor,respuesta,observaciones,usuario,contrato) VALUES (@value1,GETDATE(),@value2,86,1,20,@value3,'Automarcador',@value4)";
                     mcComm.command.Parameters.Clear();
                     mcComm.command.Parameters.AddWithValue("@value1", codigoParticipante);
                     mcComm.command.Parameters.AddWithValue("@value2", telefono);
@@ -373,10 +375,11 @@ namespace EnvioEmailSMS
                 string observacion = txtObservacion.Text;
 
                 mcComm.CommandText = "SELECT CodigoParticipante FROM NASSTITULARES WHERE Contrato=@expediente";
+                mcComm.command.Parameters.Clear();
                 mcComm.command.Parameters.AddWithValue("@expediente", contrato);
 
-                codigoParticipante = mcComm.ExecuteScalar().ToString();
-                if (codigoParticipante != null)
+                object result = mcComm.ExecuteScalar();
+                if (result != null)
                 {
                     mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",fecha,gestion,interlocutor,respuesta,observaciones,usuario,contrato) VALUES (@value1,GETDATE(),11,1,22,@value2 + ' // EMAIL: ' + @value3,'Automarcador',@value4)";
                     mcComm.command.Parameters.Clear();
