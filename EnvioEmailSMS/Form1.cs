@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using Excel = Microsoft.Office.Interop.Excel;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace EnvioEmailSMS
 {
@@ -80,14 +81,14 @@ namespace EnvioEmailSMS
                             }
                         case 81://AXACTOR
                             {
-                                string tabla = "AXALLAMADAS"; //AXALLAMADAS
+                                string tabla = "AXALLAMADAS"; //AXALLAMADAS //_Pruebas_AXACTOR
                                 string campo = "idclienteald";
                                 Inserciones_SMS_AXACTOR(dt, tabla, campo);
                                 break;
                             }
                         case 83://NASSAU
                             {
-                                string tabla = "NASSLLAMADAS";
+                                string tabla = "NASSLLAMADAS"; //NASSLLAMADAS//_Pruebas_NASSAU
                                 string campo = "codigoparticipante";
                                 Inserciones_SMS_NASSAU(dt, tabla, campo);
                                 break;
@@ -164,6 +165,7 @@ namespace EnvioEmailSMS
             {
                 string expediente = fila[0].ToString();
                 string telefono = fila[1].ToString();
+                string observacion = txtObservacion.Text;
 
                 mcComm.CommandText = "SELECT idExpediente FROM Expedientes WHERE RefCliente=@expediente";
                 mcComm.command.Parameters.AddWithValue("@expediente", expediente);
@@ -171,10 +173,11 @@ namespace EnvioEmailSMS
                 int result = Convert.ToInt32(mcComm.ExecuteScalar());
                 if (result != 0)
                 {
-                    mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",idTipoNota,Fecha,Observaciones,Usuario,Telefono,Hermes,Borrado,Activa) VALUES (@value1,788,GETDATE(),'Enviado SMS','Automarcador',@value2,0,0,1)";
+                    mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",idTipoNota,Fecha,Observaciones,Usuario,Telefono,Hermes,Borrado,Activa) VALUES (@value1,788,GETDATE(),@value2,'Automarcador',@value3,0,0,1)";
                     mcComm.command.Parameters.Clear();
                     mcComm.command.Parameters.AddWithValue("@value1", result);
-                    mcComm.command.Parameters.AddWithValue("@value2", telefono);
+                    mcComm.command.Parameters.AddWithValue("@value2", observacion);
+                    mcComm.command.Parameters.AddWithValue("@value3", telefono);
                     mcComm.ExecuteNonQuery();
                 }
             }
@@ -190,6 +193,7 @@ namespace EnvioEmailSMS
             {
                 string expediente = fila[0].ToString();
                 string email = fila[1].ToString();
+                string observacion = txtObservacion.Text;
 
                 mcComm.CommandText = "SELECT idExpediente FROM Expedientes WHERE RefCliente=@expediente";
                 mcComm.command.Parameters.AddWithValue("@expediente", expediente);
@@ -197,10 +201,11 @@ namespace EnvioEmailSMS
                 int result = Convert.ToInt32(mcComm.ExecuteScalar());
                 if (result != 0)
                 {
-                    mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",idTipoNota,Fecha,Observaciones,Usuario,Hermes,Borrado,Activa) VALUES (@value1,822,GETDATE(),'Enviado E-mail ' + @value2,'Automarcador',0,0,1)";
+                    mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",idTipoNota,Fecha,Observaciones,Usuario,Hermes,Borrado,Activa) VALUES (@value1,822,GETDATE(),@value2 + ' // EMAIL: ' + @value3,'Automarcador',0,0,1)";
                     mcComm.command.Parameters.Clear();
                     mcComm.command.Parameters.AddWithValue("@value1", result);
-                    mcComm.command.Parameters.AddWithValue("@value2", email);
+                    mcComm.command.Parameters.AddWithValue("@value2", observacion);
+                    mcComm.command.Parameters.AddWithValue("@value3", email);
                     mcComm.ExecuteNonQuery();
                 }
             }
@@ -217,6 +222,7 @@ namespace EnvioEmailSMS
             {
                 string expediente = fila[0].ToString();
                 string telefono = fila[1].ToString();
+                string observacion = txtObservacion.Text;
 
                 mcComm.CommandText = "SELECT idExpediente FROM Expedientes WHERE cast(Expediente as varchar)=@expediente OR RefCliente=@expediente";
                 mcComm.command.Parameters.AddWithValue("@expediente", expediente);
@@ -224,10 +230,11 @@ namespace EnvioEmailSMS
                 int result = Convert.ToInt32(mcComm.ExecuteScalar());
                 if (result != 0)
                 {
-                    mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",idTipoNota,Fecha,Observaciones,Usuario,Telefono,Hermes,Borrado,Activa) VALUES (@value1,788,GETDATE(),'Enviado SMS','Automarcador',@value2,0,0,1)";
+                    mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",idTipoNota,Fecha,Observaciones,Usuario,Telefono,Hermes,Borrado,Activa) VALUES (@value1,788,GETDATE(),@value2,'Automarcador',@value3,0,0,1)";
                     mcComm.command.Parameters.Clear();
                     mcComm.command.Parameters.AddWithValue("@value1", result);
-                    mcComm.command.Parameters.AddWithValue("@value2", telefono);
+                    mcComm.command.Parameters.AddWithValue("@value2", observacion);
+                    mcComm.command.Parameters.AddWithValue("@value3", telefono);
                     mcComm.ExecuteNonQuery();
                 }
             }
@@ -243,6 +250,7 @@ namespace EnvioEmailSMS
             {
                 string expediente = fila[0].ToString();
                 string email = fila[1].ToString();
+                string observacion = txtObservacion.Text;
 
                 mcComm.CommandText = "SELECT idExpediente FROM Expedientes WHERE cast(Expediente as varchar)=@expediente OR RefCliente=@expediente";
                 mcComm.command.Parameters.AddWithValue("@expediente", expediente);
@@ -250,10 +258,11 @@ namespace EnvioEmailSMS
                 int result = Convert.ToInt32(mcComm.ExecuteScalar());
                 if (result != 0)
                 {
-                    mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",idTipoNota,Fecha,Observaciones,Usuario,Hermes,Borrado,Activa) VALUES (@value1,822,GETDATE(),'Enviado E-mail ' + @value2,'Automarcador',0,0,1)";
+                    mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",idTipoNota,Fecha,Observaciones,Usuario,Hermes,Borrado,Activa) VALUES (@value1,822,GETDATE(),@value2 + ' // EMAIL: ' + @value3,'Automarcador',0,0,1)";
                     mcComm.command.Parameters.Clear();
                     mcComm.command.Parameters.AddWithValue("@value1", result);
-                    mcComm.command.Parameters.AddWithValue("@value2", email);
+                    mcComm.command.Parameters.AddWithValue("@value2", observacion);
+                    mcComm.command.Parameters.AddWithValue("@value3", email);
                     mcComm.ExecuteNonQuery();
                 }
             }
@@ -270,11 +279,14 @@ namespace EnvioEmailSMS
             {
                 string expediente = fila[0].ToString();
                 string telefono = fila[1].ToString();
+                string observacion = txtObservacion.Text;
 
-                mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",fecha,telefono,gestion,interlocutor,respuesta,observaciones,usuario) VALUES (@value1,GETDATE(),@value2,86,1,20,'Enviado SMS','Automarcador')";
+                mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",fecha,telefono,gestion,interlocutor,respuesta,observaciones,usuario) VALUES (@value1,GETDATE(),@value2,86,1,20,@value3,'Automarcador')";
                 mcComm.command.Parameters.Clear();
                 mcComm.command.Parameters.AddWithValue("@value1", expediente);
                 mcComm.command.Parameters.AddWithValue("@value2", telefono);
+                mcComm.command.Parameters.AddWithValue("@value3", observacion);
+
                 mcComm.ExecuteNonQuery();
             }
             MessageBox.Show("Guardado con éxito.");
@@ -287,8 +299,27 @@ namespace EnvioEmailSMS
             {
                 string expediente = fila[0].ToString();
                 string email = fila[1].ToString();
+                string observacion = txtObservacion.Text;
 
-                mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",fecha,gestion,interlocutor,respuesta,observaciones,usuario) VALUES (@value1,GETDATE(),86,1,20,'Enviado E-mail ' + @value2,'Automarcador')";
+                mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",fecha,gestion,interlocutor,respuesta,observaciones,usuario) VALUES (@value1,GETDATE(),86,1,20,@value2 + ' // EMAIL: ' + @value3,'Automarcador')";
+                mcComm.command.Parameters.Clear();
+                mcComm.command.Parameters.AddWithValue("@value1", expediente);
+                mcComm.command.Parameters.AddWithValue("@value2", observacion);
+                mcComm.command.Parameters.AddWithValue("@value3", email);
+                mcComm.ExecuteNonQuery();
+            }
+            MessageBox.Show("Guardado con éxito.");
+        }
+
+        private void Inserciones_CARTAS_AXACTOR(DataTable dt, string tabla, string campo)
+        {
+            mcComm.command.Connection = conn.ObtenerConexion();
+            foreach (DataRow fila in dt.Rows)
+            {
+                string expediente = fila[0].ToString();
+                string email = fila[1].ToString();
+
+                mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",fecha,gestion,interlocutor,respuesta,observaciones,usuario) VALUES (@value1,GETDATE(),7,1,21,'Enviado E-mail ' + @value2,'Automarcador')";
                 mcComm.command.Parameters.Clear();
                 mcComm.command.Parameters.AddWithValue("@value1", expediente);
                 mcComm.command.Parameters.AddWithValue("@value2", email);
@@ -297,7 +328,7 @@ namespace EnvioEmailSMS
             MessageBox.Show("Guardado con éxito.");
         }
 
-
+        
         //COLUMNA 1º 'EXPEDIENTE', 2ª COLUMNA TELEFONO/EMAIL, 3ª COLUMNA CONTRATO
         private void Inserciones_SMS_NASSAU(DataTable dt, string tabla, string campo)
         {
@@ -309,18 +340,22 @@ namespace EnvioEmailSMS
                 string codigoParticipante = string.Empty;
                 string telefono = fila[1].ToString();
                 string contrato = fila[2].ToString();
+                string observacion = txtObservacion.Text;
 
                 mcComm.CommandText = "SELECT CodigoParticipante FROM NASSTITULARES WHERE Contrato=@expediente";
+                mcComm.command.Parameters.Clear();
                 mcComm.command.Parameters.AddWithValue("@expediente", contrato);
 
-                codigoParticipante = mcComm.ExecuteScalar().ToString();
-                if (codigoParticipante != null)
+                object result = mcComm.ExecuteScalar();
+                if (result != null) // Comprobar si el resultado no es nulo
                 {
-                    mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",fecha,telefono,gestion,interlocutor,respuesta,observaciones,usuario,contrato) VALUES (@value1,GETDATE(),@value2,86,1,20,'Enviado SMS','Automarcador',@value3)";
+                    codigoParticipante = result.ToString();
+                    mcComm.CommandText = "INSERT INTO " + tabla + " (" + campo + ",fecha,telefono,gestion,interlocutor,respuesta,observaciones,usuario,contrato) VALUES (@value1,GETDATE(),@value2,86,1,20,@value3,'Automarcador',@value4)";
                     mcComm.command.Parameters.Clear();
                     mcComm.command.Parameters.AddWithValue("@value1", codigoParticipante);
                     mcComm.command.Parameters.AddWithValue("@value2", telefono);
-                    mcComm.command.Parameters.AddWithValue("@value3", contrato);
+                    mcComm.command.Parameters.AddWithValue("@value3", observacion);
+                    mcComm.command.Parameters.AddWithValue("@value4", contrato);
                     mcComm.ExecuteNonQuery();
                 }
             }
@@ -337,18 +372,21 @@ namespace EnvioEmailSMS
                 string codigoParticipante = string.Empty;
                 string email = fila[1].ToString();
                 string contrato = fila[2].ToString();
+                string observacion = txtObservacion.Text;
 
                 mcComm.CommandText = "SELECT CodigoParticipante FROM NASSTITULARES WHERE Contrato=@expediente";
+                mcComm.command.Parameters.Clear();
                 mcComm.command.Parameters.AddWithValue("@expediente", contrato);
 
-                codigoParticipante = mcComm.ExecuteScalar().ToString();
-                if (codigoParticipante != null)
+                object result = mcComm.ExecuteScalar();
+                if (result != null)
                 {
-                    mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",fecha,gestion,interlocutor,respuesta,observaciones,usuario,contrato) VALUES (@value1,GETDATE(),11,1,22,'Enviado E-mail ' + @value2,'Automarcador',@value3)";
+                    mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",fecha,gestion,interlocutor,respuesta,observaciones,usuario,contrato) VALUES (@value1,GETDATE(),11,1,22,@value2 + ' // EMAIL: ' + @value3,'Automarcador',@value4)";
                     mcComm.command.Parameters.Clear();
                     mcComm.command.Parameters.AddWithValue("@value1", codigoParticipante);
-                    mcComm.command.Parameters.AddWithValue("@value2", email);
-                    mcComm.command.Parameters.AddWithValue("@value3", contrato);
+                    mcComm.command.Parameters.AddWithValue("@value2", observacion);
+                    mcComm.command.Parameters.AddWithValue("@value3", email);
+                    mcComm.command.Parameters.AddWithValue("@value4", contrato);
                     mcComm.ExecuteNonQuery();
                 }
             }
