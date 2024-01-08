@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
+using System.Windows.Forms;
 
 namespace EnvioEmailSMS
 {
@@ -36,9 +37,17 @@ namespace EnvioEmailSMS
             SqlCommand command = new SqlCommand(query, Connect);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            dt.Rows.InsertAt(dt.NewRow(), 0);
-            return dt;
+            try
+            {
+                adapter.Fill(dt);
+                dt.Rows.InsertAt(dt.NewRow(), 0);
+                return dt;
+            } catch (Exception ex)
+            {
+                MessageBox.Show("No está conectado a la red o a la VPN.\nCierre y vuelva a intentarlo.\n\n");
+                MessageBox.Show(ex.Message);
+                return null;
+            }
         }
 
         public void Update(String query)
