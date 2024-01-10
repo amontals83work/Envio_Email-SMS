@@ -301,7 +301,7 @@ namespace EnvioEmailSMS
                 string email = fila[1].ToString();
                 string observacion = txtObservacion.Text;
 
-                mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",fecha,gestion,interlocutor,respuesta,observaciones,usuario) VALUES (@value1,GETDATE(),86,1,20,@value2 + ' // EMAIL: ' + @value3,'Automarcador')";
+                mcComm.command.CommandText = "INSERT INTO " + tabla + " (" + campo + ",fecha,gestion,interlocutor,respuesta,observaciones,usuario) VALUES (@value1,GETDATE(),11,1,20,@value2 + ' // EMAIL: ' + @value3,'Automarcador')";
                 mcComm.command.Parameters.Clear();
                 mcComm.command.Parameters.AddWithValue("@value1", expediente);
                 mcComm.command.Parameters.AddWithValue("@value2", observacion);
